@@ -1,0 +1,32 @@
+#Eliminar tots els gens que no són d'interès
+import pandas as pd
+
+df = pd.read_csv('tfg.tsv', delimiter='\t')
+
+genes_to_keep = ['AK2', 'UPP2', 'DERA', 'TYMP', 'ADSS2', 'CTPS2', 'ENTPD2', 'CA12', 'NT5C2',
+                 'CAD', 'PHGDH', 'UPB1', 'SAMHD1', 'PRPS2', 'DHODH', 'CA2', 'IMPDH1', 'CA9', 
+                 'LHPP', 'SERINC1', 'SLC29A1', 'AGXT2', 'UMPS', 'DGUOK', 'TPO', 'AMPD2', 
+                 'AMPD1', 'NT5C1A', 'GDA', 'ITPA', 'SEM1', 'PAICS', 'PPAT', 'PUDP', 'CA6', 
+                 'ACACA', 'SERINC3', 'CA1', 'AMPD3', 'SLC43A3', 'PSAT1', 'NT5E', 'GMPR', 
+                 'SLC28A2', 'ENTPD1', 'ATIC', 'AK7', 'PGD', 'UCK2', 'PSPH', 'PRPS1', 'DPYS', 
+                 'RPIA', 'AK5', 'AK9', 'ADK', 'DCK', 'SLC28A1', 'XDH', 'CDA', 'GART', 'G6PD', 
+                 'AK4', 'GMPS', 'TKT', 'SERINC5', 'SLC29A4', 'CA3', 'NUDT5', 'AK8', 'HPRT1', 
+                 'TK2', 'RRM1', 'CA4', 'SRR', 'TK1', 'ENTPD3', 'SERINC2', 'ADAL', 'CA5B', 'PGM2',
+                 'ADPRM', 'RBKS', 'PAH', 'GLRX', 'SLC29A2', 'CA5A', 'PCCA', 'TYMS', 'PFAS', 
+                 'SLC25A21', 'UPP1', 'SERINC4', 'NT5C1B', 'CA13', 'ADSS1', 'ENTPD5', 'DPYD', 
+                 'ENTPD8', 'TPK1', 'ADA', 'ENTPD4', 'SHPK', 'SLC28A3', 'ENTPD6', 'RPE', 
+                 'ENTPD7', 'SLC29A3', 'UCKL1', 'TXNRD1', 'PNP', 'NT5M', 'DIO2', 'ADSL']
+
+filtered_df = df[df['gene_id'].isin(genes_to_keep)]
+
+filtered_df.to_csv('tfg.tsv', sep='\t', index=False)
+
+#Crear 1 arxiu per a cada donador
+import pandas as pd
+
+df = pd.read_csv("tfg.tsv", sep="\t")
+
+groups = df.groupby("donor_id")
+
+for name, group in groups:
+    group.to_csv(f"{name}.tsv", sep="\t", index=False)
